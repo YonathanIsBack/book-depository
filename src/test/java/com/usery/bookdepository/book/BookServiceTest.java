@@ -1,11 +1,9 @@
 package com.usery.bookdepository.book;
 
 import com.usery.bookdepository.book.model.Book;
+import com.usery.bookdepository.book.model.BookDTO;
 import com.usery.bookdepository.builder.BookBuilder;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +24,11 @@ public class BookServiceTest {
     @Autowired
     private BookService bookService;
 
+    @AfterEach
+    public void cleanUp() {
+        this.bookBuilder.cleanUp();
+    }
+
     @Nested
     @DisplayName("Get All Book")
     class GetAllBook {
@@ -38,6 +41,37 @@ public class BookServiceTest {
             List<Book> actualResult = bookService.getAllBook();
 
             Assertions.assertEquals(2, actualResult.size());
+        }
+
+        @DisplayName("Expect to return empty list when no books was found")
+        @Test
+        void getAllBook_expectToReturnEmptyList_whenNoBooksWasFound() {
+            List<Book> actualResult = bookService.getAllBook();
+
+            Assertions.assertEquals(0, actualResult.size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Get Book By Id")
+    class GetBookById {
+        @DisplayName("Expect to return a book with correct id")
+        @Test
+        void getBookById_expectToReturnABookWithCorrectId() {
+            Book expectedResult = bookBuilder.create();
+            bookBuilder.create();
+
+            Book actualResult = bookService.getBookById("1");
+
+            Assertions.assertEquals(expectedResult.toString(), actualResult.toString());
+        }
+
+        @DisplayName("Expect to return null when no book was found")
+        @Test
+        void getBookById_expectToReturnEmptyList_whenNoBooksWasFound() {
+            Book actualResult = bookService.getBookById("1");
+
+            Assertions.assertNull(actualResult);
         }
     }
 }
