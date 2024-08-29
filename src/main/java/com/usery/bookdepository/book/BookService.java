@@ -5,7 +5,6 @@ import com.usery.bookdepository.book.model.BookDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class BookService {
@@ -19,7 +18,7 @@ public class BookService {
         return this.bookRepository.findAll();
     }
 
-    public Book getBookById(String id) {
-        return this.bookRepository.findBookById(Long.parseLong(id));
+    public BookDTO getBookById(String id) {
+        return new BookDTO(this.bookRepository.findBookById(Long.parseLong(id)));
     }
 }

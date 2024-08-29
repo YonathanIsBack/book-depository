@@ -58,10 +58,10 @@ public class BookServiceTest {
         @DisplayName("Expect to return a book with correct id")
         @Test
         void getBookById_expectToReturnABookWithCorrectId() {
-            Book expectedResult = bookBuilder.create();
+            BookDTO expectedResult = new BookDTO(bookBuilder.create());
             bookBuilder.create();
 
-            Book actualResult = bookService.getBookById("1");
+            BookDTO actualResult = bookService.getBookById("1");
 
             Assertions.assertEquals(expectedResult.toString(), actualResult.toString());
         }
@@ -69,7 +69,7 @@ public class BookServiceTest {
         @DisplayName("Expect to return null when no book was found")
         @Test
         void getBookById_expectToReturnEmptyList_whenNoBooksWasFound() {
-            Book actualResult = bookService.getBookById("1");
+            BookDTO actualResult = bookService.getBookById("1");
 
             Assertions.assertNull(actualResult);
         }

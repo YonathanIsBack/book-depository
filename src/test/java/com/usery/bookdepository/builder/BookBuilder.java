@@ -22,8 +22,7 @@ public class BookBuilder {
         return bookRepository.save(this.build());
     }
 
-    public BookBuilder cleanUp() {
+    public void cleanUp() {
         this.bookRepository.deleteAll();
-        return this;
     }
 }
