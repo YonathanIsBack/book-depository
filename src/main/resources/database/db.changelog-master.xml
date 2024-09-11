@@ -5,5 +5,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <include file="create-book.xml" relativeToChangelogFile="true"/>
+    <include file="create-author.xml" relativeToChangelogFile="true"/>
+
+    <include file="create-constraint.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
