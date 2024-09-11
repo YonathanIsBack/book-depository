@@ -74,4 +74,21 @@ public class BookServiceTest {
             Assertions.assertNull(actualResult);
         }
     }
+
+    @Nested
+    @DisplayName("Insert Book")
+    class InsertBook {
+        @Test
+        @DisplayName("Expect to insert book to database")
+        void insertBook_expectToInsertBookToDatabase() {
+            BookDTO bookDTO = new BookDTO(bookBuilder.build());
+            Book expectedResult = bookDTO.createBook();
+            expectedResult.setId(1L);
+
+            bookService.insertBook(bookDTO);
+
+            Book actualResult = bookRepository.findAll().get(0);
+            Assertions.assertEquals(expectedResult, actualResult);
+        }
+    }
 }

@@ -21,4 +21,9 @@ public class BookService {
     public BookDTO getBookById(String id) {
         return new BookDTO(this.bookRepository.findBookById(Long.parseLong(id)));
     }
+
+    public void insertBook(BookDTO bookDTO) {
+        Book book = bookDTO.createBook();
+        this.bookRepository.save(book);
+    }
 }
